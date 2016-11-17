@@ -12,14 +12,18 @@ import CoreData
 // Type safe helping wrapper around the CoreData persistent store type string constants
 //
 // Hashable conformance allows for a CoreDataStoreType to be used in a switch statement
-struct CoreDataStoreType: RawRepresentable, Hashable {
-    let rawValue: String
+public struct CoreDataStoreType: RawRepresentable, Hashable {
+    public let rawValue: String
     
-    static let sqlite = CoreDataStoreType(rawValue: NSSQLiteStoreType)
-    static let inMemory = CoreDataStoreType(rawValue: NSInMemoryStoreType)
-    static let binary = CoreDataStoreType(rawValue: NSBinaryStoreType)
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
     
-    var hashValue: Int {
+    public static let sqlite = CoreDataStoreType(rawValue: NSSQLiteStoreType)
+    public static let inMemory = CoreDataStoreType(rawValue: NSInMemoryStoreType)
+    public static let binary = CoreDataStoreType(rawValue: NSBinaryStoreType)
+    
+    public var hashValue: Int {
         return rawValue.hashValue
     }
 }

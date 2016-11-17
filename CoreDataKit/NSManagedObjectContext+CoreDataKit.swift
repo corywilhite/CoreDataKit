@@ -31,9 +31,9 @@ extension NSManagedObjectContext {
     /// and they could be casted to the inferred type.
     ///
     /// Returns nil if there was a request error or the objects could not be casted
-    public func execute<T: NSManagedObject>(fetchRequest fetchRequest: NSFetchRequest) -> [T]? {
+    public func execute<T: NSManagedObject>(fetchRequest: NSFetchRequest<NSFetchRequestResult>) -> [T]? {
         do {
-            let rawObjects = try self.executeFetchRequest(fetchRequest)
+            let rawObjects = try self.fetch(fetchRequest)
             let objects = rawObjects as? [T]
             if objects == nil { debugPrint("cast to type [\(T.self)] failed for fetch request execute") }
             return objects
@@ -45,7 +45,7 @@ extension NSManagedObjectContext {
     
     /// Executes a fetch request and takes the first object found. Nil if the underlying fetch request
     /// failed to find any objects or cast to the inferred type.
-    public func executeAndTakeFirst<T: NSManagedObject>(fetchRequest fetchRequest: NSFetchRequest) -> T? {
+    public func executeAndTakeFirst<T: NSManagedObject>(fetchRequest: NSFetchRequest<NSFetchRequestResult>) -> T? {
         guard let objects: [T] = self.execute(fetchRequest: fetchRequest) else { return nil }
         return objects.first
     }

@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-public extension NSFetchRequest {
-    /// Creates a fetch request with no predicate which will return all objects of the given type
-    static func allRequest<T: NSManagedObject>(forType type: T.Type) -> NSFetchRequest {
-        return NSFetchRequest(entityName: String(T))
-    }
+
+/// Creates a fetch request with no predicate which will return all objects of the given type
+func fetchAll<T: NSManagedObject>(of type: T.Type) -> NSFetchRequest<NSFetchRequestResult> {
+    return NSFetchRequest(entityName: String(describing: T.self))
 }
+

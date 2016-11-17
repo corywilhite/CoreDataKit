@@ -10,29 +10,35 @@ import Foundation
 import CoreData
 
 
-private extension NSPersistentStoreCoordinator {
+fileprivate extension NSPersistentStoreCoordinator {
     // Helper method for type safe initialization of a persistent store with a CoreDataStoreType
-    func addPersistentStore(with type: CoreDataStoreType, configuration: String?, URL: NSURL?, options: [NSObject: AnyObject]?) throws {
-        try self.addPersistentStoreWithType(type.rawValue, configuration: configuration, URL: URL, options: options)
+    func addPersistentStore(with type: CoreDataStoreType, configuration: String?, URL: Foundation.URL?, options: [AnyHashable: Any]?) throws {
+        try self.addPersistentStore(ofType: type.rawValue, configurationName: configuration, at: URL, options: options)
+    }
+}
+
+public extension NSManagedObjectContext {
+    public func interface<T>(for type: T.Type) -> CoreDataInterface<T> where T: NSManagedObject {
+        return CoreDataInterface(context: self)
     }
 }
 
 /// Class that will spin up a full Core Data stack from all managed object models
 /// in the bundle that gets passed in to the init.
-final class CoreDataManager {
+public final class CoreDataManager {
     
     /// The name of the store that will be saved to disk after being created
     let modelName: String
-    let bundles: [NSBundle]
+    let bundles: [Bundle]
     
     /// Developers should not change these options. They can be changed for testing purposes
-    internal(set) var options = [
+    private(set) var options = [
         NSMigratePersistentStoresAutomaticallyOption: true,
         NSInferMappingModelAutomaticallyOption: true
     ]
     
     /// Currently only supports being init with a type of .sqlite or .inMemory for CoreDataStoreType
-    init(modelName: String, storeType: CoreDataStoreType, bundles: [NSBundle] = [.mainBundle()]) {
+    public init(modelName: String, storeType: CoreDataStoreType, bundles: [Bundle] = [.main]) {
         self.modelName = modelName
         self.bundles = bundles
         
@@ -41,7 +47,7 @@ final class CoreDataManager {
             try! persistentStoreCoordinator.addPersistentStore(
                 with: storeType,
                 configuration: nil,
-                URL: NSURL(fileURLWithPath: storeURL),
+                URL: URL(fileURLWithPath: storeURL),
                 options: options
             )
             
@@ -59,12 +65,12 @@ final class CoreDataManager {
     }
     
     lazy var storeURL: String = {
-        guard let userDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as NSString? else { fatalError("Unable to find user's domain directory") }
-        return userDirectory.stringByAppendingPathComponent("\(self.modelName).sqlite") as String
+        guard let userDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first as NSString? else { fatalError("Unable to find user's domain directory") }
+        return userDirectory.appendingPathComponent("\(self.modelName).sqlite") as String
     }()
     
     lazy private(set) var managedObjectModel: NSManagedObjectModel =  {
-        guard let model = NSManagedObjectModel.mergedModelFromBundles(self.bundles) else { fatalError("Unable to create merged model from bundles \(self.bundles)") }
+        guard let model = NSManagedObjectModel.mergedModel(from: self.bundles) else { fatalError("Unable to create merged model from bundles \(self.bundles)") }
         return model
     }()
     
@@ -80,9 +86,12 @@ final class CoreDataManager {
     }
     
     /// The main context used for accessing objects using a main queue concurrency type
-    lazy private(set) var mainContext: NSManagedObjectContext = self.context(for: .MainQueueConcurrencyType)
+    lazy public private(set) var main: NSManagedObjectContext = self.context(for: .mainQueueConcurrencyType)
     
     /// A default private context if needed for background processes using private queue concurrency type
-    lazy private(set) var privateContext: NSManagedObjectContext = self.context(for: .PrivateQueueConcurrencyType)
+    lazy public private(set) var `private`: NSManagedObjectContext = self.context(for: .privateQueueConcurrencyType)
     
 }
+
+
+
