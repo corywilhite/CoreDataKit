@@ -117,10 +117,9 @@ public struct ContextInterface<T: NSManagedObject> {
     
     /// Fetches the first object found in the interface's context using the default request
     public func fetchFirst() -> T? {
-        
         return fetch { (objectType) -> NSFetchRequest<T> in
             return self.baseRequest
-            }?.first
+        }?.first
     }
     
     /// Fetches all of objects in the interface's context using the default request
