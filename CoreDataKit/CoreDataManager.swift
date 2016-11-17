@@ -17,12 +17,6 @@ fileprivate extension NSPersistentStoreCoordinator {
     }
 }
 
-public extension NSManagedObjectContext {
-    public func interface<T>(for type: T.Type) -> CoreDataInterface<T> where T: NSManagedObject {
-        return CoreDataInterface(context: self)
-    }
-}
-
 /// Class that will spin up a full Core Data stack from all managed object models
 /// in the bundle that gets passed in to the init.
 public final class CoreDataManager {

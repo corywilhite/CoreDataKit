@@ -12,9 +12,7 @@
 		7AD5DDA01D618D350023A87A /* CoreDataKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD5DD9F1D618D350023A87A /* CoreDataKitTests.swift */; };
 		7AD5DDAB1D618D670023A87A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD5DDAA1D618D670023A87A /* CoreDataManager.swift */; };
 		7AD5DDAD1D618D9B0023A87A /* CoreDataStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD5DDAC1D618D9B0023A87A /* CoreDataStoreType.swift */; };
-		7AD5DDAF1D618E2A0023A87A /* CoreDataInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD5DDAE1D618E2A0023A87A /* CoreDataInterface.swift */; };
-		7AD5DDB11D618EED0023A87A /* NSManagedObjectContext+CoreDataKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD5DDB01D618EED0023A87A /* NSManagedObjectContext+CoreDataKit.swift */; };
-		7AD5DDB31D618F640023A87A /* NSFetchRequest+CoreDataKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD5DDB21D618F640023A87A /* NSFetchRequest+CoreDataKit.swift */; };
+		7AD5DDAF1D618E2A0023A87A /* ContextInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD5DDAE1D618E2A0023A87A /* ContextInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,9 +34,7 @@
 		7AD5DDA11D618D350023A87A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AD5DDAA1D618D670023A87A /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		7AD5DDAC1D618D9B0023A87A /* CoreDataStoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStoreType.swift; sourceTree = "<group>"; };
-		7AD5DDAE1D618E2A0023A87A /* CoreDataInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataInterface.swift; sourceTree = "<group>"; };
-		7AD5DDB01D618EED0023A87A /* NSManagedObjectContext+CoreDataKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+CoreDataKit.swift"; sourceTree = "<group>"; };
-		7AD5DDB21D618F640023A87A /* NSFetchRequest+CoreDataKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+CoreDataKit.swift"; sourceTree = "<group>"; };
+		7AD5DDAE1D618E2A0023A87A /* ContextInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,9 +80,7 @@
 				7AD5DD931D618D350023A87A /* CoreDataKit.h */,
 				7AD5DDAA1D618D670023A87A /* CoreDataManager.swift */,
 				7AD5DDAC1D618D9B0023A87A /* CoreDataStoreType.swift */,
-				7AD5DDAE1D618E2A0023A87A /* CoreDataInterface.swift */,
-				7AD5DDB01D618EED0023A87A /* NSManagedObjectContext+CoreDataKit.swift */,
-				7AD5DDB21D618F640023A87A /* NSFetchRequest+CoreDataKit.swift */,
+				7AD5DDAE1D618E2A0023A87A /* ContextInterface.swift */,
 				7AD5DD951D618D350023A87A /* Info.plist */,
 			);
 			path = CoreDataKit;
@@ -212,10 +206,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AD5DDAD1D618D9B0023A87A /* CoreDataStoreType.swift in Sources */,
-				7AD5DDB31D618F640023A87A /* NSFetchRequest+CoreDataKit.swift in Sources */,
-				7AD5DDAF1D618E2A0023A87A /* CoreDataInterface.swift in Sources */,
+				7AD5DDAF1D618E2A0023A87A /* ContextInterface.swift in Sources */,
 				7AD5DDAB1D618D670023A87A /* CoreDataManager.swift in Sources */,
-				7AD5DDB11D618EED0023A87A /* NSManagedObjectContext+CoreDataKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
