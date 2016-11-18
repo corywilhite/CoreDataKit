@@ -9,12 +9,17 @@
 import Foundation
 import CoreData
 
-class Place: NSManagedObject { }
+
+fileprivate extension NSManagedObject {
+    static func allRequest<T: NSManagedObject>() -> NSFetchRequest<T> {
+        return NSFetchRequest(entityName: String(describing: type(of: self)))
+    }
+}
 
 public extension NSManagedObjectContext {
     
     public func interface<T: NSManagedObject>(for type: T.Type) -> ContextInterface<T> {
-        return ContextInterface(context: self)
+        return ContextInterface(context: self, baseRequest: T.allRequest())
     }
     
     /// Returns true if the context managed to save
@@ -38,22 +43,16 @@ public extension NSManagedObjectContext {
 }
 
 
-fileprivate extension NSManagedObject {
-    static func allRequest<T: NSManagedObject>() -> NSFetchRequest<T> {
-        return NSFetchRequest(entityName: String(describing: type(of: self)))
-    }
-}
-
 /// Generic implementation of CoreDataInterfaceType using a generic type parameter constrained to NSManagedObjects
 public struct ContextInterface<T: NSManagedObject> {
     
     public let context: NSManagedObjectContext // init(context:)
+    public var baseRequest: NSFetchRequest<T>
     
-    public init(context: NSManagedObjectContext) {
+    public init(context: NSManagedObjectContext, baseRequest: NSFetchRequest<T>) {
         self.context = context
+        self.baseRequest = baseRequest
     }
-    
-    public var baseRequest: NSFetchRequest<T> = T.allRequest()
     
     /// Fetches all objects found by the request built by the builder function.
     /// The fetch occurs on this interface's context
